@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--绑定-->
+<mapper namespace="com.Juff.dao.UserMapper">
+
+    <select id="getUserLike" resultType="com.Juff.pojo.User">
+--         select * from  mybatis.user where name like #{value}  这里需要注意，sql连注释都会运行的，注释没用！！！
+        select * from  mybatis.user where name like "%"#{value}"%"
+
+    </select>
+
+    <!--相当于实现类UserImpl,实现对应的接口-->
+    <select id="getUserList" resultType="hello">
+--          SQL语句
+         select * from mybatis.user
+     </select>
+
+    <select id="getUserById" parameterType="int" resultType="hello">
+        select * from mybatis.user where id=#{id};
+    </select>
+
+    <select id="getUserById2" parameterType="map" resultType="hello">
+        select * from mybatis.user where id=#{helloId};
+    </select>
+
+
+    <insert id="addUser" parameterType="hello">
+        insert  into mybatis.user(id ,name,pwd) values (#{id},#{name},#{pwd});
+    </insert>
+
+    <insert id="addUser2" parameterType="map">
+        insert  into mybatis.user(id,name,pwd) values (#{userId},#{userName},#{password});
+    </insert>
+
+    <update id="updateUser" parameterType="hello">
+      update mybatis.user set name =#{name},pwd=#{pwd} where id=#{id};
+    </update>
+
+    <delete id="deleteUser" parameterType="hello">
+      delete from mybatis.user  where id=#{id};
+    </delete>
+
+
+    <!--分页1-->
+    <select id="getUserByLimit" parameterType="map"
+            resultType="hello">
+      select * from mybatis.user limit #{startIndex},#{pageSize}
+    </select>
+
+    <!--分页2-->
+    <select id="getUserByRowBounds" parameterType="map"
+            resultType="hello">
+      select * from mybatis.user
+    </select>
+</mapper>

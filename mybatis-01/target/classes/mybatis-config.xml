@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<!--mybatis里面的具体配置，控制链接数据库的操作-->
+<configuration>
+
+    <properties resource="db.properties">
+        <property name="username" value="root"/>
+        <property name="password" value="199829."/>
+    </properties>
+    <!--标准日志工厂-->
+<!--    <settings>-->
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+<!--    </settings>-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!-- 起别名-->
+    <!--第一种（typeAlias）实体类少适用-->
+    <!--第二种（package）实体类多适用，可以通过注解取到-->
+    <typeAliases>
+        <!--        <typeAlias type="com.Juff.pojo.User" alias="User"/>-->
+        <package name="com.Juff.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+
+                <property name="driver" value="${driver}"/>
+                <!--这里useSSL跟视频里面的true相反，否则会报错-->
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 下面的mappers要一一包含对应实体类的Mapper，表示联系对应的视图类-->
+    <mappers>
+        <!--优先使用这个-->
+        <mapper resource="com/Juff/dao/UserMapper.xml"/>
+
+        <!--注意：使用以下两个之一需要接口和Mapper配置文件同名并且在同一个包下-->
+        <!-- <mapper class="com.Juff.dao.UserMapper"></mapper>-->
+        <!-- <package name="com.Juff.dao"/>-->
+    </mappers>
+
+</configuration>
